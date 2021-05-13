@@ -38,7 +38,6 @@ function setupA() {
         citiesX.push($(".location strong", this).text());
     });
     var cities = xUnique(citiesX);
-    console.log(cities);
 
     $(cities).each(function() {
         var city=this;
