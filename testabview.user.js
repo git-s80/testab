@@ -45,11 +45,11 @@ function setupA() {
         var span = document.createElement('span');
         span.appendChild(document.createTextNode(city));
         $(span).on("click", function(){siteAshowOnlyCity(city)});
-        $(span).addClass("siteAshowOnlyCity");
+        $(span).addClass("siteAshowOnly");
         $(span).insertAfter($("div#content > div.content-header > h1"));
     });
 
-    $("div#content > div.content-header > h1").on("click", function(){siteAshowAllCities()});
+    $("div#content > div.content-header > h1").on("click", function(){siteAshowAll()});
 }
 
 function xUnique(array) {
@@ -58,7 +58,7 @@ function xUnique(array) {
     });
 }
 
-function siteAshowAllCities() {
+function siteAshowAll() {
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
         $(this).show();
     });
@@ -77,8 +77,11 @@ function siteAshowOnlyCity(city) {
 function addCssSiteA() {
     var a = `
 div.footer {z-index: 900;}
-.siteAshowOnlyCity {
+.siteAshowOnly {
   padding-left: 12px;
+}
+.siteAselected{
+color: red;
 }
 .content-item > .row > div {
 position: unset;
