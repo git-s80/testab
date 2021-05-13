@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.25
+// @version      0.26
 // @description  test AB view
 // @author       You
 // @match        https://www.avanture.net/*
