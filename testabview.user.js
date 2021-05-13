@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.23
+// @version      0.24
 // @description  test AB view
 // @author       You
 // @match        https://www.avanture.net/*
@@ -18,6 +18,7 @@ var site = "";
 
 
 (function() {
+    
     'use strict';
     if ($(location).attr('origin') == 'https://www.avanture.net' || $(location).attr('origin') == 'https://www.avanture.net') {
         site = "a";
