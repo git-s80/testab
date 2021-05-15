@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.27
+// @version      0.28
 // @description  test AB view
 // @author       You
 // @match        https://www.avanture.net/*
@@ -36,7 +36,17 @@ var site = "";
 function setupA() {
     var citiesX = [];
     var agesX = [];
+    var tmpCity;
+    var tmpAge;
+    var citiesArr = Object();
+    var agesArr = Object();
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
+        tmpCity = $(".location strong", this).text();
+        if (typeof citiesArr[tmpCity] !== 'undefined') {
+            citiesArr[tmpCity]++;
+        } else {
+            citiesArr[tmpCity] = 1;
+        }
         citiesX.push($(".location strong", this).text());
     });
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
@@ -53,13 +63,19 @@ function setupA() {
     $(divC).appendTo($(div0)).addClass("siteAcities");
     $(divA).appendTo($(div0)).addClass("siteAages");
 
-    $(cities).each(function() {
-        var city=this;
+Object.entries(citiesArr).forEach(([key, value]) =>{
+        var city=key;
         var span = document.createElement('span');
-        span.appendChild(document.createTextNode(city));
+        span.appendChild(document.createTextNode(city+" ("+value+")"));
         $(span).on("click", function(){siteAshowOnlyCity(city, this)});
         $(span).addClass("siteAshowOnly").addClass("siteAshowOnlyCity");
         $(span).appendTo($(divC));
+});
+    Object.entries(citiesArr).forEach(function(key, value) {
+    });
+
+
+    $(cities).each(function() {
     });
 
     $(ages).each(function() {
