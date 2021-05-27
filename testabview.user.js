@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.28
+// @version      0.29
 // @description  test AB view
 // @author       You
 // @match        https://www.avanture.net/*
@@ -34,8 +34,6 @@ var site = "";
 })();
 
 function setupA() {
-    var citiesX = [];
-    var agesX = [];
     var tmpCity;
     var tmpAge;
     var citiesArr = Object();
@@ -47,13 +45,17 @@ function setupA() {
         } else {
             citiesArr[tmpCity] = 1;
         }
-        citiesX.push($(".location strong", this).text());
     });
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
-        agesX.push($(".age strong", this).text());
+        tmpAge = $(".age strong", this).text();
+        if (typeof agesArr[tmpAge] !== 'undefined') {
+            agesArr[tmpAge]++;
+        } else {
+            agesArr[tmpAge] = 1;
+        }
     });
-    var cities = xUnique(citiesX).sort();
-    var ages = xUnique(agesX).sort();
+    console.log(agesArr);
+    console.log(citiesArr);
 
     var div0 = document.createElement('div');
     var divC = document.createElement('div');
@@ -63,26 +65,18 @@ function setupA() {
     $(divC).appendTo($(div0)).addClass("siteAcities");
     $(divA).appendTo($(div0)).addClass("siteAages");
 
-Object.entries(citiesArr).forEach(([key, value]) =>{
-        var city=key;
+    Object.entries(citiesArr).forEach(([key, value]) =>{
         var span = document.createElement('span');
-        span.appendChild(document.createTextNode(city+" ("+value+")"));
-        $(span).on("click", function(){siteAshowOnlyCity(city, this)});
+        span.appendChild(document.createTextNode(key+" ("+value+")"));
+        $(span).on("click", function(){siteAshowOnlyCity(key, this)});
         $(span).addClass("siteAshowOnly").addClass("siteAshowOnlyCity");
         $(span).appendTo($(divC));
-});
-    Object.entries(citiesArr).forEach(function(key, value) {
     });
 
-
-    $(cities).each(function() {
-    });
-
-    $(ages).each(function() {
-        var age=this;
+    Object.entries(agesArr).forEach(([key, value]) =>{
         var span = document.createElement('span');
-        span.appendChild(document.createTextNode(age));
-        $(span).on("click", function(){siteAshowOnlyAge(age, this)});
+        span.appendChild(document.createTextNode(key));
+        $(span).on("click", function(){siteAshowOnlyAge(key, this)});
         $(span).addClass("siteAshowOnly").addClass("siteAshowOnlyAge");
         $(span).appendTo($(divA));
     });
