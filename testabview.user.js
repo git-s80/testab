@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.30
+// @version      0.31
 // @description  test AB view
 // @author       You
 // @downloadUR   https://github.com/git-s80/testab/raw/main/testabview.user.js
@@ -56,8 +56,7 @@ function setupA() {
             agesArr[tmpAge] = 1;
         }
     });
-    console.log(agesArr);
-    console.log(citiesArr);
+    citiesArr = sortObject(citiesArr);
 
     var div0 = document.createElement('div');
     var divC = document.createElement('div');
@@ -90,6 +89,24 @@ function xUnique(array) {
     return $.grep(array, function(el, index) {
         return index === $.inArray(el, array);
     });
+}
+
+function sortObject(o) {
+    var sorted = {},
+    key, a = [];
+
+    for (key in o) {
+        if (o.hasOwnProperty(key)) {
+            a.push(key);
+        }
+    }
+
+    a.sort();
+
+    for (key = 0; key < a.length; key++) {
+        sorted[a[key]] = o[a[key]];
+    }
+    return sorted;
 }
 
 function siteAshowAll() {
