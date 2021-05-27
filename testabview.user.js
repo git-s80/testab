@@ -1,9 +1,11 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.29
+// @version      0.30
 // @description  test AB view
 // @author       You
+// @downloadUR   https://github.com/git-s80/testab/raw/main/testabview.user.js
+// @updateURL    https://github.com/git-s80/testab/raw/main/testabview.user.js
 // @match        https://www.avanture.net/*
 // @match        https://avanture.net/*
 // @match        https://www.sloescort.com/*
