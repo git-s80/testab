@@ -49,7 +49,7 @@ function setupA() {
         }
     });
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
-        tmpAge = $(".age strong", this).text();
+        tmpAge = $("li.mdi-altimeter", this).text();
         if (typeof agesArr[tmpAge] !== 'undefined') {
             agesArr[tmpAge]++;
         } else {
@@ -120,7 +120,7 @@ function siteAshowOnlyAge(age, sender) {
     $(".siteAshowOnly ").removeClass("siteAselected");
     $(sender).addClass("siteAselected");
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
-        if ($(".age strong", this).text() != age){
+        if ($("li.mdi-altimeter", this).text() != age){
             $(this).hide();
         } else {
             $(this).show();
