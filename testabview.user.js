@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.31
+// @version      0.32
 // @description  test AB view
 // @author       You
 // @downloadUR   https://github.com/git-s80/testab/raw/main/testabview.user.js
