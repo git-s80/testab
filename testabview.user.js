@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Test AB view
 // @namespace    http://view.testab.si/
-// @version      0.32
+// @version      0.33
 // @description  test AB view
 // @author       You
 // @downloadUR   https://github.com/git-s80/testab/raw/main/testabview.user.js
@@ -38,8 +38,10 @@ var site = "";
 function setupA() {
     var tmpCity;
     var tmpAge;
+    var tmpSex;
     var citiesArr = Object();
     var agesArr = Object();
+    var sexArr = Object();
     $("#infinitescroll-classifieds-container > .content-item").each(function(i){
         tmpCity = $(".location strong", this).text();
         if (typeof citiesArr[tmpCity] !== 'undefined') {
@@ -56,15 +58,26 @@ function setupA() {
             agesArr[tmpAge] = 1;
         }
     });
+    $("#infinitescroll-classifieds-container > .content-item").each(function(i){
+        tmpSex = $("li.mdi-view-list", this).text();
+        if (typeof sexArr[tmpSex] !== 'undefined') {
+            sexArr[tmpSex]++;
+        } else {
+            sexArr[tmpSex] = 1;
+        }
+    });
     citiesArr = sortObject(citiesArr);
+    agesArr = sortObject(agesArr);
 
     var div0 = document.createElement('div');
     var divC = document.createElement('div');
     var divA = document.createElement('div');
+    var divS = document.createElement('div');
     $(div0).insertAfter($("div#content > div.content-header > h1"));
 
     $(divC).appendTo($(div0)).addClass("siteAcities");
     $(divA).appendTo($(div0)).addClass("siteAages");
+    $(divS).appendTo($(div0)).addClass("siteAsex");
 
     Object.entries(citiesArr).forEach(([key, value]) =>{
         var span = document.createElement('span');
@@ -80,6 +93,14 @@ function setupA() {
         $(span).on("click", function(){siteAshowOnlyAge(key, this)});
         $(span).addClass("siteAshowOnly").addClass("siteAshowOnlyAge");
         $(span).appendTo($(divA));
+    });
+
+    Object.entries(sexArr).forEach(([key, value]) =>{
+        var span = document.createElement('span');
+        span.appendChild(document.createTextNode(key));
+        $(span).on("click", function(){siteAshowOnlySex(key, this)});
+        $(span).addClass("siteAshowOnly").addClass("siteAshowOnlySex");
+        $(span).appendTo($(divS));
     });
 
     $("div#content > div.content-header > h1").on("click", function(){siteAshowAll()});
@@ -140,6 +161,17 @@ function siteAshowOnlyCity(city, sender) {
     });
 }
 
+function siteAshowOnlySex(sex, sender) {
+    $(".siteAshowOnly ").removeClass("siteAselected");
+    $(sender).addClass("siteAselected");
+    $("#infinitescroll-classifieds-container > .content-item").each(function(i){
+        if ($("li.mdi-view-list", this).text().toLowerCase() != sex.toLowerCase()){
+            $(this).hide();
+        } else {
+            $(this).show();
+        }
+    });
+}
 function addCssSiteA() {
     var a = `
 div.footer {z-index: 900;}
